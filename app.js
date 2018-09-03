@@ -18,14 +18,10 @@ app.set('view engine', 'pug');
 app.get('/', (req, res) => {
     let number = [];
     for (let i = 0; i < 100; i++){
-<<<<<<< Updated upstream
-         number.push({index: i});
-
-=======
         number.push({index: i});
->>>>>>> Stashed changes
     }
     res.render('index', {number,
+        title: 'Welcome!',
         date: new Date(),
         list: ['apple', 'orange', 'peach']
     })
