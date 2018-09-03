@@ -16,7 +16,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
-    res.render('index', {number: [{index: 'select'}, {index: '1'}, {index: '2'}, {index: '3'}],
+    let number = [];
+    for (let i = 0; i < 100; i++){
+         number.push({index: i});
+
+    }
+    res.render('index', {number,
         date: new Date(),
         list: ['apple', 'orange', 'peach']
     })
