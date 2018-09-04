@@ -1,14 +1,15 @@
 body
-    form
-        p Enter your name:
-        input
-        p Enter your email:
-        input
-        p Enter your age:
-
-
-        select
+    form(action='savedUsers' method='post')
+        label Enter your username:
+        input(type='text' name='username')
+        label Enter your password:
+        input(type='password' name='password')
+        label Enter your email:
+        input(type='text' name='email')
+        label Enter your age:
+        select(name='age')
             each value in number
                 option= value.index
+
 
         button Submit!
