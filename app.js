@@ -92,46 +92,6 @@ app.post('/savedUsers', (req, res) => {
 
 
 });
-// app.post('/userlistingview', (req, res) => {
-//     // res.send(userFile)
-//     // console.log('name', req.body.username, 'password', req.body.password, 'email', req.body.email, 'age', req.body.age);
-//     //
-//     // res.send(req.body.username)
-//     let cName = req.body.username;
-//     let cPassword = req.body.password;
-//     let cEmail = req.body.email;
-//     let cAge = req.body.age;
-//
-//     fs.readFile('user.json', 'utf8', (err, data) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         let index = 0;
-//         let pData = JSON.parse(data);
-//         console.log(pData);
-//         let myDataObject = {
-//             id: 0,
-//             name: cName,
-//             password: cPassword,
-//             email: cEmail,
-//             age: cAge
-//         };
-//         pData.users.forEach(client => {
-//             if (client.id === index) index++;
-//             myJsonArray.users.push(client)
-//         });
-//         myDataObject.id = index;
-//         myJsonArray.users.push(myDataObject);
-//         console.log(myDataObject);
-//         fs.writeFile(userFile, JSON.stringify(myJsonArray),'utf8', (err) => {
-//             if (err) console.log(err);
-//         });
-//     });
-//     res.sendFile(userFile);
-// });
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 
 app.listen(3000, () => {
     console.log('listening on port 3000');
