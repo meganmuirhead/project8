@@ -19,9 +19,7 @@ const LocalStrategy = require('passport-local').Strategy; // a 'strategy' to use
 
 const port = process.env.PORT || 3000;
 
-let myJsonArray = {
-    users: []
-};
+let users = [];
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -52,42 +50,61 @@ app.use(session({
 
 // app.use(bodyParser.urlencoded({extended: true}));
 app.post('/savedUsers', (req, res) => {
-        // console.log('name', req.body.username, 'password', req.body.password, 'email', req.body.email, 'age', req.body.age);
-        // res.send('the name you typed is ' + req.body.username + '. You typed ' + req.body.password);
-        // // res.sendFile(userFile);
-        // // res.sendfile(session({}), req.body.username, (req, res) => {
-        //     console.log(req.body.username)
-    let cName = req.body.username;
-    let cPassword = req.body.password;
-    let cEmail = req.body.email;
-    let cAge = req.body.age;
+        console.log('name', req.body.username, 'password', req.body.password, 'email', req.body.email, 'age', req.body.age);
+        res.send('the name you typed is ' + req.body.username + '. You typed ' + req.body.password);
+        // res.sendFile(userFile);
+        // res.sendfile(session({}), req.body.username, (req, res) => {
+            console.log(req.body.username)
+        let objectName = req.body.username;
+        let objectPassword = req.body.password;
+        let objectEmail = req.body.email;
+        let objectAge = req.body.age;
 
-    fs.readFile('user.json', 'utf8', (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-        let index = 0;
-        let pData = JSON.parse(data);
-        console.log(pData);
-        let myDataObject = {
-            id: 0,
-            name: cName,
-            password: cPassword,
-            email: cEmail,
-            age: cAge
+        let myReqToObject = {
+            name: objectName,
+            password: objectPassword,
+            email: objectEmail,
+            age: objectAge
         };
-        pData.users.forEach(client => {
-            if (client.id === index) index++;
-            myJsonArray.users.push(client)
+        users.push(myReqToObject);
+        console.log(users);
+        //read and parse json file
+        fs.readFile('user.json', 'utf8', (err, data) => {
+            if (err) throw err;
+            console.log('data:', data)
+            let parsedDataIntoJson = JSON.parse(data);
+            console.log('parsed', parsedDataIntoJson);
+
         });
-        myDataObject.id = index;
-        myJsonArray.users.push(myDataObject);
-        console.log(myDataObject);
-        fs.writeFile(userFile, JSON.stringify(myJsonArray),'utf8', (err) => {
-            if (err) console.log(err);
-        });
-    });
-    res.sendFile(userFile);
+
+        // let parsedJsonObject = JSON.parse('user.json');
+        // console.log(parsedJsonObject)
+    // fs.readFile('user.json', 'utf8', (err, data) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     let index = 0;
+    //     let pData = JSON.parse(data);
+    //     console.log(pData);
+    //     let myDataObject = {
+    //         id: 0,
+    //         name: cName,
+    //         password: cPassword,
+    //         email: cEmail,
+    //         age: cAge
+    //     };
+    //     pData.users.forEach(client => {
+    //         if (client.id === index) index++;
+    //         myJsonArray.users.push(client)
+    //     });
+    //     myDataObject.id = index;
+    //     myJsonArray.users.push(myDataObject);
+    //     console.log(myDataObject);
+    //     fs.writeFile(userFile, JSON.stringify(myJsonArray),'utf8', (err) => {
+    //         if (err) console.log(err);
+    //     });
+    // });
+    // res.sendFile(userFile);
     // res.redirect('/userlistingview');
 
 
