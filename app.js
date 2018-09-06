@@ -48,17 +48,16 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// app.use(bodyParser.urlencoded({extended: true}));
 app.post('/savedUsers', (req, res) => {
         console.log('name', req.body.username, 'password', req.body.password, 'email', req.body.email, 'age', req.body.age);
-        res.send('the name you typed is ' + req.body.username + '. You typed ' + req.body.password);
-        // res.sendFile(userFile);
-        // res.sendfile(session({}), req.body.username, (req, res) => {
+        // res.send('the name you typed is ' + req.body.username + '. You typed ' + req.body.password);
+
             console.log(req.body.username)
         let objectName = req.body.username;
         let objectPassword = req.body.password;
         let objectEmail = req.body.email;
         let objectAge = req.body.age;
+
 
         let myReqToObject = {
             name: objectName,
@@ -74,42 +73,27 @@ app.post('/savedUsers', (req, res) => {
             console.log('data:', data)
             let parsedDataIntoJson = JSON.parse(data);
             console.log('parsed', parsedDataIntoJson);
+            //new object with users added to my data
+            parsedDataIntoJson.users.push(users);
+
+        fs.writeFile(userFile, JSON.stringify(parsedDataIntoJson), 'utf8', (err) => {
+            if (err) console.log(err)
+        })
+            //get each user to have a unique idea
+
+            //serialize this thing, and over write to the file
 
         });
-
-        // let parsedJsonObject = JSON.parse('user.json');
-        // console.log(parsedJsonObject)
-    // fs.readFile('user.json', 'utf8', (err, data) => {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     let index = 0;
-    //     let pData = JSON.parse(data);
-    //     console.log(pData);
-    //     let myDataObject = {
-    //         id: 0,
-    //         name: cName,
-    //         password: cPassword,
-    //         email: cEmail,
-    //         age: cAge
-    //     };
-    //     pData.users.forEach(client => {
-    //         if (client.id === index) index++;
-    //         myJsonArray.users.push(client)
-    //     });
-    //     myDataObject.id = index;
-    //     myJsonArray.users.push(myDataObject);
-    //     console.log(myDataObject);
-    //     fs.writeFile(userFile, JSON.stringify(myJsonArray),'utf8', (err) => {
-    //         if (err) console.log(err);
-    //     });
-    // });
-    // res.sendFile(userFile);
-    // res.redirect('/userlistingview');
-
-
+    res.redirect('/userlistingview');
 });
+app.get('/userlistingview', (req, res) => {
+    fs.readFile(userFile, 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log('data', data);
+        res.send(data);
 
+    });
+});
 app.listen(3000, () => {
     console.log('listening on port 3000');
 });
