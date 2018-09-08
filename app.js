@@ -4,18 +4,13 @@ let app = express();
 const fs = require('fs');
 
 const session = require('express-session');
-const uuid = require('uuid/v4')
 const userFile = __dirname + '/user.json';
 
 const FileStore = require('session-file-store')(session);
 const bodyParser = require('body-parser'); // be able to parse form elements
 
 const cookieParser = require('cookie-parser');
-const passport = require('passport');
-// const Strategy = require('passport-google-oauth20').Strategy; // a 'strategy' to use for passport
-const LocalStrategy = require('passport-local').Strategy; // a 'strategy' to use for passport
 
-// const path = require('path');
 
 const port = process.env.PORT || 3000;
 
@@ -26,13 +21,11 @@ app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
     let number = [];
-    for (let i = 0; i < 100; i++){
+    for (let i = 0; i < 150; i++){
         number.push({index: i});
     }
     res.render('index', {number,
         title: 'Welcome!',
-        // date: new Date(),
-        // list: ['apple', 'orange', 'peach']
     })
 });
 app.use(cookieParser());
@@ -58,14 +51,13 @@ app.post('/savedUsers', (req, res) => {
         let objectEmail = req.body.email;
         let objectAge = req.body.age;
 
-    function uuidv4() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
         });
     }
         let objectId = uuidv4();
-
         let myReqToObject = {
             name: objectName,
             password: objectPassword,
@@ -82,24 +74,26 @@ app.post('/savedUsers', (req, res) => {
             let parsedDataIntoJson = JSON.parse(data);
             console.log('parsed', parsedDataIntoJson);
             //new object with users added to my data
-            parsedDataIntoJson.users.push(users);
+            parsedDataIntoJson.users.push(myReqToObject);
 
         fs.writeFile(userFile, JSON.stringify(parsedDataIntoJson), 'utf8', (err) => {
             if (err) console.log(err)
         })
-            //get each user to have a unique idea
-
-            //serialize this thing, and over write to the file
-
-        });
+    });
     res.redirect('/userlistingview');
 });
 app.get('/userlistingview', (req, res) => {
     fs.readFile(userFile, 'utf8', (err, data) => {
     if (err) throw err;
     console.log('data', data);
-        res.send(data);
-
+    let parsedData = JSON.parse(data);
+    console.log('parsed', parsedData);
+        // res.send(data);
+        //parse json file into object
+        //take the users property on the object and iterate over my users property
+        // send that to res.render
+        console.log('trying', parsedData.users);
+        res.render('table', {users: parsedData.users})
     });
 });
 app.listen(3000, () => {

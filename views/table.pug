@@ -1,0 +1,18 @@
+#table-wrapper
+
+table(action='userlistingview' method='get')
+    tr
+        th Users added to table
+    tr  User:
+        each user in users
+            td= user.name
+    tr Password
+        each user in users
+            td= user.password
+    tr Email
+        each user in users
+            td= user.email
+    tr Age
+        each user in users
+            td= user.age
+
