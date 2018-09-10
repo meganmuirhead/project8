@@ -96,6 +96,37 @@ app.get('/userlistingview', (req, res) => {
         res.render('table', {users: parsedData.users})
     });
 });
+app.get('/editUser', (req, res) => {
+    fs.readFile(userFile, 'utf8', (err, data) => {
+        if (err) throw err;
+        console.log('data', data);
+        let parsedData = JSON.parse(data);
+        console.log('parsed', parsedData);
+        // res.send(data);
+        //parse json file into object
+        //take the users property on the object and iterate over my users property
+        // send that to res.render
+        console.log('trying', parsedData.users);
+        res.render('editUser', {users: parsedData.users})
+    });
+});
+app.get('/delete', (req, res) => {
+    fs.readFile(userFile, 'utf8', (err, data) => {
+        if (err) throw err;
+        console.log('data', data);
+        let parsedData = JSON.parse(data);
+        parsedData.users.forEach(e => {
+            console.log(e)
+            if (id != id) {
+                //push to new array
+                
+            }
+        })
+    });
+    let id = req.query.id;
+    //http://localhost:3000/delete?id=something
+    res.end("I have received the ID: " + id);
+});
 app.listen(3000, () => {
     console.log('listening on port 3000');
 });

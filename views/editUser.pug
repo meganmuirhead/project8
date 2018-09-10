@@ -1,6 +1,6 @@
 style
     include style.css
-table(action='userlistingview' method='get' style="width:100%")
+table(action='editUser' method='get')
     tr
         th User
         th Password
@@ -15,7 +15,6 @@ table(action='userlistingview' method='get' style="width:100%")
     tr
         each user in users
             td= user.password
-
                 button edit
                 button delete
     tr
