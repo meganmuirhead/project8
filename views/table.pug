@@ -6,27 +6,12 @@ table(action='userlistingview' method='get' style="width:100%")
         th Password
         th Email
         th Age
-
-    tr
-        each user in users
+        th Edit/Remove
+    each user in users
+        tr
             td= user.name
-                button edit
-                button delete
-    tr
-        each user in users
             td= user.password
-
-                button edit
-                button delete
-    tr
-        each user in users
             td= user.email
-                button edit
-                button delete
-    tr
-        each user in users
             td= user.age
-                button edit
-                button delete
-
-
+            td
+                a(href='/delete?id=' + user.id) Delete

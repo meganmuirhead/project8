@@ -111,21 +111,39 @@ app.get('/editUser', (req, res) => {
     });
 });
 app.get('/delete', (req, res) => {
+    let id = req.query.id;
+
     fs.readFile(userFile, 'utf8', (err, data) => {
         if (err) throw err;
         console.log('data', data);
         let parsedData = JSON.parse(data);
-        parsedData.users.forEach(e => {
-            console.log(e)
-            if (id != id) {
-                //push to new array
-                
+        // console.log(parsedData.users.id)
+        // parsedData.users.forEach(e => {
+        //     console.log(e)
+        //     if (id != id) {
+        //         //push to new array if it doesnt match
+        //         //if it does match
+        //         let newArray = parsedData.users.id;
+        //         console.log(newArray)
+        //     }
+        // })
+        for (let i = 0; i < parsedData.users.length; i++) {
+            if( parsedData.users[i].id === id) {
+                parsedData.users.splice(i, 1);
+                break;
             }
+        }
+        console.log('new users array', parsedData.users);
+        //write array to the user.json file
+        fs.writeFile(userFile, JSON.stringify(parsedData), 'utf8', (err) => {
+            if (err) console.log(err)
         })
+        //after file gets written to, do a redirect back to the users list
     });
-    let id = req.query.id;
+
     //http://localhost:3000/delete?id=something
-    res.end("I have received the ID: " + id);
+    // res.end("I have received the ID: " + id);
+    res.redirect('/userlistingview');
 });
 app.listen(3000, () => {
     console.log('listening on port 3000');
