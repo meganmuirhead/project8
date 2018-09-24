@@ -1,14 +1,18 @@
 # project8
-this is a simple app where you can add, edit and delete a user from an html from. the users get added to a table. in the table there will be buttons you can click on to edit or remove the user.  I am using node. 
+CRUD
+======
 
-steps on how to use:
-1) fill in the inputs
-2) click the "submit" button after you have filled out what you would like (you may leave all the inputs blank if you so wish)
-3) you should be redirected to an html table with a list of user/s that have been added. 
-4)if you like how the table looks, leave it alone, you are all done with the app
-5)if you want to edit a user, click on edit. that will redirect you to a new page. you can update whatever field you so wish. once you are done updating, hit the "Update" button
-6) if you want to delete a user, click on "Delete"
+This is a simple app where you can creat, read update and delete a user from an html from. The users get added to a table when you firt create them on the main screen. In the table there will be buttons you can click on to edit or remove the user.  I am using node and a library called Express.
 
-the app will have an add user to the table soon, but it isn't there yet
+Steps on how to use:
+* Fill in the inputs
+* Click the "Submit" button after you have filled out what you would like (you may leave all the inputs blank if you so wish, that will make part of the table empty)
+* You should be redirected to an html table with a list of user/s that have been added. 
+* If you like how the table looks, leave it alone, you are all done with the app
+* If you want to edit a user, click on edit. that will redirect you to a new page. you can update whatever field you so wish. once you are done updating, hit the "Update" button
+* If you want to delete a user, click on "Delete"
 
-happy coding!
+Eventually the app will have an "Add User" option to the table that displays all the added users.
+
+Hopefully you enjoyed using the app!
+Happy coding!
