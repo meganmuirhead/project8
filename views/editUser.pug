@@ -1,31 +1,14 @@
-style
-    include style.css
-table(action='editUser' method='get')
-    tr
-        th User
-        th Password
-        th Email
-        th Age
-
-    tr
-        each user in users
-            td= user.name
-                button edit
-                button delete
-    tr
-        each user in users
-            td= user.password
-                button edit
-                button delete
-    tr
-        each user in users
-            td= user.email
-                button edit
-                button delete
-    tr
-        each user in users
-            td= user.age
-                button edit
-                button delete
+body
+    form(action='editUsersForm' method='post')
+        label Enter your username:
+        input(type='text' name='username' value=user.name)
+        label Enter your password:
+        input(type='password' name='password' value=user.password)
+        label Enter your email:
+        input(type='text' name='email' value=user.email)
+        label Enter your age:
+        input(type='number' name='age' value=user.age)
+        input(type='hidden' name='id' value=user.id)
 
 
+        button Update!
